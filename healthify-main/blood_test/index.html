@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Test Results</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img src="element-img-1.png" alt="">
+
+  <div class="container">
+    <h1 class="title">Blood Test Results</h1>
+
+    <!-- Table to enter test results -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Value</th>
+          <th>Normal Range</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Blood Sugar</td>
+          <td><input type="number" id="bloodSugar" placeholder="Enter value"></td>
+          <td>70-100 mg/dL</td>
+          <td id="bloodSugarStatus">-</td>
+        </tr>
+        <tr>
+          <td>Platelets</td>
+          <td><input type="number" id="platelets" placeholder="Enter value"></td>
+          <td>150-450 K/µL</td>
+          <td id="plateletsStatus">-</td>
+        </tr>
+        <tr>
+          <td>Hemoglobin</td>
+          <td><input type="number" id="hemoglobin" placeholder="Enter value"></td>
+          <td>12-16 g/dL</td>
+          <td id="hemoglobinStatus">-</td>
+        </tr>
+        <tr>
+          <td>Iron</td>
+          <td><input type="number" id="iron" placeholder="Enter value"></td>
+          <td>60-170 µg/dL</td>
+          <td id="ironStatus">-</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Submit button to trigger calculation -->
+    <button class="submit-btn" onclick="calculateStatuses()">Submit</button>
+
+    <!-- Results Summary -->
+    <div class="results-summary">
+      <h3 class="summary-title">Results Summary</h3>
+      <ul class="summary-list" id="resultsSummary"></ul>
+    </div>
+  </div>
+  <img src="element-img-1.png" alt="">
+
+  <script>
+    // Function to calculate the status based on the value
+    function calculateStatus(value, range) {
+      const [min, max] = range.split('-').map(Number);
+      if (value < min) return 'low';
+      if (value > max) return 'high';
+      return 'normal';
+    }
+
+    // Function to calculate and update the statuses
+    function calculateStatuses() {
+      // Get the values entered by the user
+      const bloodSugar = document.getElementById('bloodSugar').value;
+      const platelets = document.getElementById('platelets').value;
+      const hemoglobin = document.getElementById('hemoglobin').value;
+      const iron = document.getElementById('iron').value;
+
+      // Define the normal ranges
+      const ranges = {
+        bloodSugar: '70-100',
+        platelets: '150-450',
+        hemoglobin: '12-16',
+        iron: '60-170'
+      };
+
+      // Calculate the status for each metric
+      const bloodSugarStatus = bloodSugar ? calculateStatus(bloodSugar, ranges.bloodSugar) : '-';
+      const plateletsStatus = platelets ? calculateStatus(platelets, ranges.platelets) : '-';
+      const hemoglobinStatus = hemoglobin ? calculateStatus(hemoglobin, ranges.hemoglobin) : '-';
+      const ironStatus = iron ? calculateStatus(iron, ranges.iron) : '-';
+
+      // Update the status cells
+      document.getElementById('bloodSugarStatus').textContent = bloodSugarStatus;
+      document.getElementById('plateletsStatus').textContent = plateletsStatus;
+      document.getElementById('hemoglobinStatus').textContent = hemoglobinStatus;
+      document.getElementById('ironStatus').textContent = ironStatus;
+
+      // Update the summary
+      const resultsSummary = document.getElementById('resultsSummary');
+      resultsSummary.innerHTML = '';
+
+      if (bloodSugarStatus !== '-') {
+        resultsSummary.innerHTML += `<li class="status-${bloodSugarStatus}">Blood Sugar: ${bloodSugar} mg/dL - ${bloodSugarStatus}</li>`;
+      }
+      if (plateletsStatus !== '-') {
+        resultsSummary.innerHTML += `<li class="status-${plateletsStatus}">Platelets: ${platelets} K/µL - ${plateletsStatus}</li>`;
+      }
+      if (hemoglobinStatus !== '-') {
+        resultsSummary.innerHTML += `<li class="status-${hemoglobinStatus}">Hemoglobin: ${hemoglobin} g/dL - ${hemoglobinStatus}</li>`;
+      }
+      if (ironStatus !== '-') {
+        resultsSummary.innerHTML += `<li class="status-${ironStatus}">Iron: ${iron} µg/dL - ${ironStatus}</li>`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Chatbot Interface -->
+    <div class="chatbot-container">
+        <div class="chatbot-header">Ask Your Question</div>
+        <div class="chatbot-body" id="chatbotBody">
+            <p class="bot-message">Hi there! You can ask your own question or select one from the list below:</p>
+            <div class="question-list" id="questionList"></div>
+        </div>
+        <div class="chatbot-footer">
+            <input type="text" id="userInput" placeholder="Type your question here..." />
+            <button onclick="handleCustomQuestion()">Ask</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
